@@ -134,7 +134,7 @@ def get_dataset(image_root, json_path, split=0.2, resize_size=224):
 
     indices = list(range(n))
     random.seed(42)
-    random.shuffle(indices)
+    #random.shuffle(indices)
 
     ds_train = Subset(ds, indices[n_valid:], TransformsTrain(resize_size))
     ds_valid = Subset(ds, indices[:n_valid], TransformsEval())
