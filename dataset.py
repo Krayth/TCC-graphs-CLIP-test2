@@ -141,6 +141,46 @@ def get_dataset(image_root, json_path, split=0.2, resize_size=224):
 
     return ds_train, ds_valid
 
+def get_dataset_train(image_root, json_path, split=0.2, resize_size=224):
+    """Cria splits de treino/validação para grafos.
+
+    Args:
+        image_root: diretório das imagens
+        json_path: caminho do json de arestas
+        split: fração de validação
+        resize_size: tamanho de resize/crop
+    """
+    ds = GraphDataset(image_root, json_path)
+    n = len(ds)
+
+    indices = list(range(n))
+    random.seed(42)
+    #random.shuffle(indices)
+
+    ds = Subset(ds, indices, TransformsTrain(resize_size))
+
+    return ds
+
+def get_dataset_valid(image_root, json_path, split=0.2, resize_size=224):
+    """Cria splits de treino/validação para grafos.
+
+    Args:
+        image_root: diretório das imagens
+        json_path: caminho do json de arestas
+        split: fração de validação
+        resize_size: tamanho de resize/crop
+    """
+    ds = GraphDataset(image_root, json_path)
+    n = len(ds)
+
+    indices = list(range(n))
+    random.seed(42)
+    #random.shuffle(indices)
+
+    ds = Subset(ds, indices, TransformsEval())
+
+    return ds
+
 
 def wrap_text(text):
     """Função para quebrar o texto em linhas. Usada apenas para visualização
