@@ -78,9 +78,9 @@ class TransformsTrain:
     def __init__(self, resize_size=224):
         transforms = transf.Compose([
             transf.PILToTensor(),
-            transf.RandomResizedCrop(size=(resize_size, resize_size),
-                                     scale=(0.5, 1.), ratio=(0.7, 1.3), antialias=True),
-            transf.RandomHorizontalFlip(),
+            #transf.RandomResizedCrop(size=(resize_size, resize_size),
+            #                         scale=(0.5, 1.), ratio=(0.7, 1.3), antialias=True),
+            #transf.RandomHorizontalFlip(),
             transf.ToDtype(torch.float32),
             transf.Normalize(mean=(122.7, 114.6, 100.9),
                              std=(59.2, 58.4, 59.0))
@@ -98,7 +98,7 @@ class TransformsEval:
         transforms = transf.Compose([
             transf.PILToTensor(),
             transf.Resize(size=256, antialias=True),
-            transf.CenterCrop(size=224),
+            #transf.CenterCrop(size=224),
             transf.ToDtype(torch.float32),
             transf.Normalize(mean=(122.7, 114.6, 100.9),
                              std=(59.2, 58.4, 59.0))
@@ -157,7 +157,7 @@ def get_dataset_train(image_root, json_path, split=0.2, resize_size=224):
     random.seed(42)
     #random.shuffle(indices)
 
-    ds = Subset(ds, indices, TransformsTrain(resize_size))
+    ds = Subset(ds, indices, TransformsEval())
 
     return ds
 
