@@ -11,8 +11,18 @@ class TextEncoder(nn.Module):
 
         # Carrega o pipeline do Hugginface, que inclui um tokenizador e
         # um modelo de classificação de texto
-        pipe = pipeline(model="distilbert/distilbert-base-cased", task="feature-extraction",
-                        device="cpu")
+        model_kwargs = {
+            'attention_dropout': 0.0,
+            'dropout': 0.0,
+            'qa_dropout': 0.0,
+        }
+
+        pipe = pipeline(model="distilbert/distilbert-base-cased",
+                        task="feature-extraction",
+                        return_tensors=True,
+                        device="cpu",)
+                        #model_kwargs=model_kwargs)
+        
         tokenizer = pipe.tokenizer
         model = pipe.model
 
