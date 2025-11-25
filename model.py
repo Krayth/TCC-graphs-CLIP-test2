@@ -20,8 +20,9 @@ class TextEncoder(nn.Module):
         pipe = pipeline(model="distilbert/distilbert-base-cased",
                         task="feature-extraction",
                         return_tensors=True,
-                        device="cpu",)
-                        #model_kwargs=model_kwargs)
+                        device="cpu",
+                        #model_kwargs=model_kwargs
+                        )
         
         tokenizer = pipe.tokenizer
         model = pipe.model
